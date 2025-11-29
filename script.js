@@ -43,6 +43,7 @@ async function updateStatusFile() {
 
 // Poll for changes from GitHub Gist
 async function pollStatus() {
+    console.log('Polling status from Gist...');
     try {
         const res = await fetch(GIST_RAW_URL, { cache: 'no-store' });
         if (!res.ok) return;
@@ -68,7 +69,7 @@ async function pollStatus() {
 }
 
 // Start polling every 3 seconds
-setInterval(pollStatus, 3000);
+// setInterval(pollStatus, 3000);
 
 (async () => {
     await pollStatus(); // poll once on load

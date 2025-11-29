@@ -14,9 +14,12 @@
     <div id="message-container">
         <h1 id="message">Loading...</h1>
     </div>
-    <p style="text-align: center; color: gray; font-size: 0.9em;">
+    <!-- <p style="text-align: center; color: gray; font-size: 0.9em;">
         Polling for updates every 3 seconds...
-    </p>
+    </p> -->
+    <button onclick="pollStatus()" style="padding: 10px 20px; margin-top: 20px; cursor: pointer;">
+        Refresh Status
+    </button>
 
     <script>
         const trafficLight = document.getElementById('traffic-light');
@@ -30,6 +33,7 @@
         let lastSyncedState = null;
 
         async function pollStatus() {
+            console.log('Polling status from Gist...');
             try {
                 const res = await fetch(GIST_RAW_URL, { cache: 'no-store' });
                 if (!res.ok) {
@@ -59,10 +63,12 @@
         }
 
         // Poll every 5 seconds
-        setInterval(pollStatus, 5000);
+        // setInterval(pollStatus, 5000);
 
         // Poll immediately on load
-        pollStatus();
+        (async () => {
+            await pollStatus(); // poll once on load
+        })();
     </script>
 </body>
 
