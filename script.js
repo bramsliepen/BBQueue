@@ -8,8 +8,9 @@ btnSetGo.addEventListener('click', setGo)
 btnSetStop.addEventListener('click', setStop)
 btnChangeText.addEventListener('click', cycleText)
 
-// ===== GITHUB GIST SYNC VIA NETLIFY FUNCTION =====
-const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/1f434826b262912d9b2154f29b800b53/raw/status.json`;
+// ===== GIST STATUS VIA NETLIFY FUNCTIONS =====
+// Primary page uses the Netlify function endpoints directly so we can control cache headers.
+const GET_STATUS_URL = '/.netlify/functions/get-status';
 const UPDATE_FUNCTION_URL = '/.netlify/functions/update-gist';
 
 let lastSyncedState = null;
@@ -40,11 +41,12 @@ async function updateStatusFile() {
     }
 }
 
-// Poll for changes from GitHub Gist
+// Poll for changes from Netlify get-status function (returns freshest value)
 async function pollStatus() {
     console.log('Polling status from Gist...');
     try {
-        const res = await fetch(GIST_RAW_URL, { cache: 'no-store' });
+        // Add a cache-busting query param as extra safety
+        const res = await fetch(`${GET_STATUS_URL}?t=${Date.now()}`, { cache: 'no-store' });
         if (!res.ok) return;
         const state = await res.json();
         const currentState = JSON.stringify(state);

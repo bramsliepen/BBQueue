@@ -25,14 +25,16 @@
         const trafficLight = document.getElementById('traffic-light');
         const message = document.getElementById('message');
 
-        const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/1f434826b262912d9b2154f29b800b53/raw/status.json`;
+        // Replace with your Netlify site URL (the site where you deployed the functions)
+        // Example: https://my-bbqueue-site.netlify.app/.netlify/functions/get-status
+        const GET_STATUS_URL = 'https://<your-netlify-site>.netlify.app/.netlify/functions/get-status';
 
         let lastSyncedState = null;
 
         async function pollStatus() {
             console.log('Polling status from Gist...');
             try {
-                const res = await fetch(GIST_RAW_URL, { cache: 'no-store' });
+                const res = await fetch(`${GET_STATUS_URL}?t=${Date.now()}`, { cache: 'no-store' });
                 if (!res.ok) {
                     message.innerText = 'Error fetching status';
                     return;
