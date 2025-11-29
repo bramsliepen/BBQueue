@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBQueue Viewer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h2>Synced Traffic Light Viewer</h2>
+    <div id="traffic-light" class="go"></div>
+    <div id="message-container">
+        <h1 id="message">Loading...</h1>
+    </div>
+    <p style="text-align: center; color: gray; font-size: 0.9em;">
+        Polling for updates every 3 seconds...
+    </p>
+
+    <script>
+        const trafficLight = document.getElementById('traffic-light');
+        const message = document.getElementById('message');
+
+        // ===== POLLING SETUP =====
+        // Point this to your primary BBQueue page's status.json
+        // Example: https://bramsliepen.github.io/BBQueue/status.json
+        const PRIMARY_STATUS_URL = 'https://bramsliepen.github.io/BBQueue/status.json';
+        
+        let lastSyncedState = null;
+
+        async function pollStatus() {
+            try {
+                const res = await fetch(PRIMARY_STATUS_URL, { cache: 'no-store' });
+                if (!res.ok) {
+                    message.innerText = 'Error fetching status';
+                    return;
+                }
+                const state = await res.json();
+                const currentState = JSON.stringify(state);
+
+                if (currentState !== lastSyncedState) {
+                    lastSyncedState = currentState;
+                    
+                    // Update traffic light color
+                    if (state.trafficLight && state.trafficLight !== trafficLight.style.backgroundColor) {
+                        trafficLight.style.backgroundColor = state.trafficLight;
+                    }
+                    
+                    // Update message text
+                    if (state.messageText) {
+                        message.innerText = state.messageText;
+                    }
+                }
+            } catch (err) {
+                console.warn('Poll failed:', err);
+                message.innerText = 'Connection lost...';
+            }
+        }
+
+        // Poll every 3 seconds
+        setInterval(pollStatus, 3000);
+        
+        // Poll immediately on load
+        pollStatus();
+    </script>
+</body>
+
+</html>
