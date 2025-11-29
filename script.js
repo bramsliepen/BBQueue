@@ -92,8 +92,11 @@ const goTexts = [
     "Geen zorgen Monique, van dit eten wordt jij niet ziek.",
     "Geen vlees te vinden, ben klaar om vega eten te verslinden!",
     "Suikerloze lekkernijen worden gemaakt, door jou wordt niet gebraakt.",
-    "Maak je klaar voor een 100% gluten free, smaaksesatie",
-    "Rob is bijna klaar bij de gril, dadelijk lekker van bil."
+    "Maak je klaar voor een 100% gluten free, vega vriendelijke smaaksesatie",
+    "Rob heeft nu geen vlees gril, dat wordt dadelijk lekker van bil.",
+    "Buiten varken, vis of rund maakt Rob ook wel eens dat hij enkel jouw gunt",
+    "Robbie maakt nu iets lekkers voor jou, dus blijf hem maar eeuwig trouw.",
+    "Deze BBQ King is klaar voor zijn BBQ Queen, al het eten is green."
 ];
 
 const stopTexts = [
@@ -104,7 +107,9 @@ const stopTexts = [
     "Vega onviendelijke praktijken vinden plaats hier, maar jij bent nog steeds Rob's lievelingsdier.",
     "Rob is bezig met de BBQ, dus zeg maar \"HOUWDOE!\"",
     "Er ligt vlees op de BBQ, dit is enger dan Scooby Doo...",
-    "There is meat on the BBQ, but I still love you!"
+    "There is meat on the BBQ, but I still love you!",
+    "Laat Rob maar even in zijn element, dan belooft hij dat hij jou later weer verwend.",
+    "Nu maakt Robbie wat vlees warm, straks ben jij weer aan de beurt, geen alarm."
 ];
 
 function cycleText() {
