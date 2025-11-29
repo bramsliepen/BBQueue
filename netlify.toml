@@ -1,0 +1,8 @@
+[build]
+  command = "echo 'Static site'"
+  publish = "."
+
+[[redirects]]
+  from = "/.netlify/functions/:name"
+  to = "/.netlify/functions/:name"
+  status = 200

@@ -8,16 +8,14 @@ btnSetGo.addEventListener('click', setGo)
 btnSetStop.addEventListener('click', setStop)
 btnChangeText.addEventListener('click', cycleText)
 
-// ===== GITHUB GIST SYNC VIA ACTIONS =====
-// Get Gist ID from environment or config
+// ===== GITHUB GIST SYNC VIA NETLIFY FUNCTION =====
 const GIST_ID = '1f434826b262912d9b2154f29b800b53';
 const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/${GIST_ID}/raw`;
-const REPO_OWNER = 'bramsliepen';
-const REPO_NAME = 'BBQueue';
+const UPDATE_FUNCTION_URL = '/.netlify/functions/update-gist';
 
 let lastSyncedState = null;
 
-// Trigger GitHub Actions workflow to update Gist
+// Update Gist via Netlify Function
 async function updateStatusFile() {
     const state = {
         trafficLight: trafficLight.style.backgroundColor,
@@ -25,30 +23,21 @@ async function updateStatusFile() {
     };
 
     try {
-        const response = await fetch(
-            `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/dispatches`,
-            {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    event_type: 'update-traffic-light',
-                    client_payload: {
-                        state: JSON.stringify(state, null, 2)
-                    }
-                })
-            }
-        );
+        const response = await fetch(UPDATE_FUNCTION_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state)
+        });
 
         if (response.status === 204) {
-            console.log('Workflow triggered successfully');
+            console.log('Gist updated successfully');
         } else {
-            console.warn('Failed to trigger workflow:', response.status, response.statusText);
+            console.warn('Failed to update Gist:', response.status);
         }
     } catch (err) {
-        console.warn('Could not trigger workflow:', err);
+        console.warn('Could not update Gist:', err);
     }
 }
 
@@ -79,7 +68,7 @@ async function pollStatus() {
 }
 
 // Start polling every 3 seconds
-// setInterval(pollStatus, 3000);
+setInterval(pollStatus, 3000);
 
 (async () => {
     await pollStatus(); // poll once on load
