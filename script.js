@@ -13,7 +13,7 @@ const STATUS_FILE = './status.json'; // URL to status.json on this page
 let lastSyncedState = null;
 
 // Save current state to status.json (via fetch POST or direct write if in Node/SSG)
-async function updateStatusFile() {
+function updateStatusFile() {
     console.log('Updating status file...');
     const state = {
         trafficLight: trafficLight.style.backgroundColor,
@@ -57,9 +57,10 @@ async function pollStatus() {
     }
 }
 
-// Start polling every 3 seconds
-// setInterval(pollStatus, 3000);
-pollStatus(); // poll once on load
+
+(async () => {
+    await pollStatus(); // poll once on load
+})();
 
 function setGo() {
     trafficLight.style.backgroundColor = "green"
