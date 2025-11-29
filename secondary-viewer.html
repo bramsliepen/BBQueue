@@ -26,7 +26,7 @@
         // Point this to your primary BBQueue page's status.json
         // Example: https://bramsliepen.github.io/BBQueue/status.json
         const PRIMARY_STATUS_URL = 'https://bramsliepen.github.io/BBQueue/status.json';
-        
+
         let lastSyncedState = null;
 
         async function pollStatus() {
@@ -41,12 +41,12 @@
 
                 if (currentState !== lastSyncedState) {
                     lastSyncedState = currentState;
-                    
+
                     // Update traffic light color
                     if (state.trafficLight && state.trafficLight !== trafficLight.style.backgroundColor) {
                         trafficLight.style.backgroundColor = state.trafficLight;
                     }
-                    
+
                     // Update message text
                     if (state.messageText) {
                         message.innerText = state.messageText;
@@ -60,7 +60,7 @@
 
         // Poll every 3 seconds
         setInterval(pollStatus, 3000);
-        
+
         // Poll immediately on load
         pollStatus();
     </script>
