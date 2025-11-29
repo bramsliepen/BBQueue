@@ -115,5 +115,6 @@ function cycleText() {
     } else {
         message.innerText = "Selecteer een status...";
     }
+    updateStatusFile();
 }
 
