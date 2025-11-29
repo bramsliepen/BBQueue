@@ -43,6 +43,9 @@
                 const state = await res.json();
                 const currentState = JSON.stringify(state);
 
+                console.log('Fetched state:', state);
+                console,log('Current state string:', currentState);
+
                 if (currentState !== lastSyncedState) {
                     lastSyncedState = currentState;
 
