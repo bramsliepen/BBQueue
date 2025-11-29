@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h2>Synced Traffic Light Viewer</h2>
+    <h2>BBQueue, Monique</h2>
     <div id="traffic-light" class="go"></div>
     <div id="message-container">
         <h1 id="message">Loading...</h1>
@@ -25,8 +25,6 @@
         const trafficLight = document.getElementById('traffic-light');
         const message = document.getElementById('message');
 
-        // Replace with your Netlify site URL (the site where you deployed the functions)
-        // Example: https://my-bbqueue-site.netlify.app/.netlify/functions/get-status
         const GET_STATUS_URL = 'https://tangerine-duckanoo-8546b5.netlify.app/.netlify/functions/get-status';
 
         let lastSyncedState = null;

@@ -8,8 +8,6 @@ btnSetGo.addEventListener('click', setGo)
 btnSetStop.addEventListener('click', setStop)
 btnChangeText.addEventListener('click', cycleText)
 
-// ===== GIST STATUS VIA NETLIFY FUNCTIONS =====
-// Primary page uses the Netlify function endpoints directly so we can control cache headers.
 const GET_STATUS_URL = '/.netlify/functions/get-status';
 const UPDATE_FUNCTION_URL = '/.netlify/functions/update-gist';
 
@@ -92,27 +90,30 @@ function setText() {
 }
 
 const goTexts = [
-    "You can go!",
-    "Go ahead!",
-    "The path is clear!"
+    "Kom erbij Monique, het is een go, al het vlees ligt al in de kliko!",
+    "Geen zorgen Monique, van dit eten wordt jij niet ziek.",
+    "Geen vlees te vinden, ben klaar om vega eten te verslinden!",
+    "Suikerloze lekkernijen worden gemaakt, door jou wordt niet gebraakt.",
+    "Maak je klaar voor een 100% gluten free, smaaksesatie",
+    "Rob is bijna klaar bij de gril, dadelijk lekker van bil."
 ];
 
 const stopTexts = [
-    "You must stop!",
-    "Stop right there!",
-    "Do not proceed!"
+    "PAS OP!!! Vlezige praktijken in proces.",
+    "Allergie gedetecteerd, maak dat je je omkeert!",
+    "Nee nee, dit is enkel voor Rob, helaas niks voor jou mop.",
+    "Rob is in zijn element, lekker vrijen moet op een ander moment.",
+    "Vega onviendelijke praktijken vinden plaats hier, maar jij bent nog steeds Rob's lievelingsdier.",
+    "Rob is bezig met de BBQ, dus zeg maar \"HOUWDOE!\"",
+    "Er ligt vlees op de BBQ, dit is enger dan Scooby Doo...",
+    "There is meat on the BBQ, but I still love you!"
 ];
-
-let goIndex = 0;
-let stopIndex = 0;
 
 function cycleText() {
     if (trafficLight.style.backgroundColor === "green") {
-        goIndex = (goIndex + 1) % goTexts.length;
-        message.innerText = goTexts[goIndex];
+        message.innerText = goTexts[Math.floor(Math.random() * goTexts.length)];
     } else {
-        stopIndex = (stopIndex + 1) % stopTexts.length;
-        message.innerText = stopTexts[stopIndex];
+        message.innerText = stopTexts[Math.floor(Math.random() * stopTexts.length)];
     }
     updateStatusFile()
 }
