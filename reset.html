@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBQueue Reset</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h2>Reset BBQueue</h2>
+    <button id="reset-button">Reset</button>
+    <script>
+        document.getElementById('reset-button').addEventListener('click', resetStatus);
+        async function resetStatus() {
+            const UPDATE_FUNCTION_URL = '/.netlify/functions/update-gist';
+            const state = {
+                trafficLight: 'grey',
+                messageText: 'selecteer een status...'
+            };
+            try {
+                const response = await fetch(UPDATE_FUNCTION_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(state)
+                });
+    
+                if (response.status === 204) {
+                    console.log('Gist updated successfully');
+                } else {
+                    console.warn('Failed to update Gist:', response.status);
+                }
+            } catch (err) {
+                console.warn('Could not update Gist:', err);
+            }
+        }
+    </script>
+</body>
+
+</html>
