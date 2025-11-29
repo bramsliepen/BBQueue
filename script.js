@@ -9,8 +9,7 @@ btnSetStop.addEventListener('click', setStop)
 btnChangeText.addEventListener('click', cycleText)
 
 // ===== GITHUB GIST SYNC VIA NETLIFY FUNCTION =====
-const GIST_ID = '1f434826b262912d9b2154f29b800b53';
-const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/${GIST_ID}/status.json`;
+const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/1f434826b262912d9b2154f29b800b53/raw/9b0d86204b8f753b61d3510275e89ada6c97e448/status.json`;
 const UPDATE_FUNCTION_URL = '/.netlify/functions/update-gist';
 
 let lastSyncedState = null;
