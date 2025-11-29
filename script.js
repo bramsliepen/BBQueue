@@ -32,6 +32,7 @@ async function updateStatusFile() {
 
 // Poll for changes from status.json (useful if another page updates it, or for sync across tabs)
 async function pollStatus() {
+    console.log('Polling for status updates...');
     try {
         const res = await fetch(STATUS_FILE, { cache: 'no-store' });
         if (!res.ok) return;
