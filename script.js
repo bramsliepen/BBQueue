@@ -110,8 +110,10 @@ const stopTexts = [
 function cycleText() {
     if (trafficLight.style.backgroundColor === "green") {
         message.innerText = goTexts[Math.floor(Math.random() * goTexts.length)];
-    } else {
+    } else if (trafficLight.style.backgroundColor === "red") {
         message.innerText = stopTexts[Math.floor(Math.random() * stopTexts.length)];
+    } else {
+        message.innerText = "Selecteer een status...";
     }
 }
 
