@@ -22,16 +22,16 @@
         const trafficLight = document.getElementById('traffic-light');
         const message = document.getElementById('message');
 
-        // ===== POLLING SETUP =====
-        // Point this to your primary BBQueue page's status.json
-        // Example: https://bramsliepen.github.io/BBQueue/status.json
-        const PRIMARY_STATUS_URL = 'https://bramsliepen.github.io/BBQueue/status.json';
+        // ===== GITHUB GIST POLLING SETUP =====
+        // Replace with your Gist ID
+        const GIST_ID = '1f434826b262912d9b2154f29b800b53';
+        const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/${GIST_ID}/raw`;
 
         let lastSyncedState = null;
 
         async function pollStatus() {
             try {
-                const res = await fetch(PRIMARY_STATUS_URL, { cache: 'no-store' });
+                const res = await fetch(GIST_RAW_URL, { cache: 'no-store' });
                 if (!res.ok) {
                     message.innerText = 'Error fetching status';
                     return;
@@ -58,8 +58,8 @@
             }
         }
 
-        // Poll every 3 seconds
-        setInterval(pollStatus, 3000);
+        // Poll every 5 seconds
+        setInterval(pollStatus, 5000);
 
         // Poll immediately on load
         pollStatus();

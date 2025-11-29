@@ -8,33 +8,54 @@ btnSetGo.addEventListener('click', setGo)
 btnSetStop.addEventListener('click', setStop)
 btnChangeText.addEventListener('click', cycleText)
 
-// ===== POLLING & STATE SYNC =====
-const STATUS_FILE = './status.json'; // URL to status.json on this page
+// ===== GITHUB GIST SYNC VIA ACTIONS =====
+// Get Gist ID from environment or config
+const GIST_ID = '1f434826b262912d9b2154f29b800b53';
+const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/${GIST_ID}/raw`;
+const REPO_OWNER = 'bramsliepen';
+const REPO_NAME = 'BBQueue';
+
 let lastSyncedState = null;
 
-// Save current state to status.json (via fetch POST or direct write if in Node/SSG)
-function updateStatusFile() {
-    console.log('Updating status file...');
+// Trigger GitHub Actions workflow to update Gist
+async function updateStatusFile() {
     const state = {
         trafficLight: trafficLight.style.backgroundColor,
         messageText: message.innerText
     };
+
     try {
-        // For static hosting, you'll need to manually update status.json via git/CI
-        // This logs what would be saved (see instructions below)
-        console.log('State to save:', state);
-        // Store in localStorage as backup (for same-origin polling across tabs)
-        localStorage.setItem('trafficLightState', JSON.stringify(state));
+        const response = await fetch(
+            `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/dispatches`,
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event_type: 'update-traffic-light',
+                    client_payload: {
+                        state: JSON.stringify(state, null, 2)
+                    }
+                })
+            }
+        );
+
+        if (response.status === 204) {
+            console.log('Workflow triggered successfully');
+        } else {
+            console.warn('Failed to trigger workflow:', response.status, response.statusText);
+        }
     } catch (err) {
-        console.warn('Could not save state:', err);
+        console.warn('Could not trigger workflow:', err);
     }
 }
 
-// Poll for changes from status.json (useful if another page updates it, or for sync across tabs)
+// Poll for changes from GitHub Gist
 async function pollStatus() {
-    console.log('Polling for status updates...');
     try {
-        const res = await fetch(STATUS_FILE, { cache: 'no-store' });
+        const res = await fetch(GIST_RAW_URL, { cache: 'no-store' });
         if (!res.ok) return;
         const state = await res.json();
         const currentState = JSON.stringify(state);
@@ -57,6 +78,8 @@ async function pollStatus() {
     }
 }
 
+// Start polling every 3 seconds
+// setInterval(pollStatus, 3000);
 
 (async () => {
     await pollStatus(); // poll once on load

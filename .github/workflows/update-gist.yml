@@ -1,0 +1,39 @@
+name: Update Gist Status
+
+on:
+  repository_dispatch:
+    types: [update-traffic-light]
+
+jobs:
+  update-gist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update Gist with new status
+        env:
+          GIST_ID: ${{ secrets.GIST_ID }}
+          GITHUB_PAT: ${{ secrets.GIST_PAT }}
+          PAYLOAD: ${{ github.event.client_payload.state }}
+        run: |
+          curl -X PATCH https://api.github.com/gists/$GIST_ID \
+            -H "Authorization: token $GITHUB_PAT" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "files": {
+                "status.json": {
+                  "content": "${{ env.PAYLOAD }}"
+                }
+              }
+            }'
+
+      - name: Commit status.json to repo
+        env:
+          PAYLOAD: ${{ github.event.client_payload.state }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          echo '${{ env.PAYLOAD }}' > status.json
+          git add status.json
+          git commit -m "Update traffic light status" || echo "No changes to commit"
+          git push
