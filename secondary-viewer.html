@@ -28,7 +28,7 @@
         // ===== GITHUB GIST POLLING SETUP =====
         // Replace with your Gist ID
         const GIST_ID = '1f434826b262912d9b2154f29b800b53';
-        const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/${GIST_ID}/raw`;
+        const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/${GIST_ID}/status.json`;
 
         let lastSyncedState = null;
 
@@ -44,7 +44,7 @@
                 const currentState = JSON.stringify(state);
 
                 console.log('Fetched state:', state);
-                console,log('Current state string:', currentState);
+                console.log('Current state string:', currentState);
 
                 if (currentState !== lastSyncedState) {
                     lastSyncedState = currentState;

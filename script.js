@@ -10,7 +10,7 @@ btnChangeText.addEventListener('click', cycleText)
 
 // ===== GITHUB GIST SYNC VIA NETLIFY FUNCTION =====
 const GIST_ID = '1f434826b262912d9b2154f29b800b53';
-const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/${GIST_ID}/raw`;
+const GIST_RAW_URL = `https://gist.githubusercontent.com/bramsliepen/${GIST_ID}/status.json`;
 const UPDATE_FUNCTION_URL = '/.netlify/functions/update-gist';
 
 let lastSyncedState = null;
