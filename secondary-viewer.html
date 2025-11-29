@@ -17,9 +17,9 @@
     <!-- <p style="text-align: center; color: gray; font-size: 0.9em;">
         Polling for updates every 3 seconds...
     </p> -->
-    <button onclick="pollStatus()" style="padding: 10px 20px; margin-top: 20px; cursor: pointer;">
+    <!-- <button onclick="pollStatus()" style="padding: 10px 20px; margin-top: 20px; cursor: pointer;">
         Refresh Status
-    </button>
+    </button> -->
 
     <script>
         const trafficLight = document.getElementById('traffic-light');
@@ -63,7 +63,7 @@
         }
 
         // Poll every 5 seconds
-        // setInterval(pollStatus, 5000);
+        setInterval(pollStatus, 5000);
 
         // Poll immediately on load
         (async () => {
