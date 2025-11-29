@@ -76,13 +76,11 @@ async function pollStatus() {
 
 function setGo() {
     trafficLight.style.backgroundColor = "green"
-    setText()
-    updateStatusFile()
+    cycleText()
 }
 function setStop() {
     trafficLight.style.backgroundColor = "red"
-    setText()
-    updateStatusFile()
+    cycleText()
 }
 
 function setText() {
@@ -115,6 +113,5 @@ function cycleText() {
     } else {
         message.innerText = stopTexts[Math.floor(Math.random() * stopTexts.length)];
     }
-    updateStatusFile()
 }
 
