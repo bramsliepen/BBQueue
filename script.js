@@ -91,16 +91,15 @@ const goTexts = [
     "Kom erbij Monique, het is een go, al het vlees ligt al in de kliko!",
     "Geen zorgen Monique, van dit eten wordt jij niet ziek.",
     "Geen vlees te vinden, ben klaar om vega eten te verslinden!",
-    "Suikerloze lekkernijen worden gemaakt, door jou wordt niet gebraakt.",
+    "Suikerloze lekkernijen worden gemaakt, door jou wordt er niet gebraakt.",
     "Maak je klaar voor een 100% gluten free, vega vriendelijke smaaksesatie",
-    "Rob heeft nu geen vlees gril, dat wordt dadelijk lekker van bil.",
-    "Buiten varken, vis of rund maakt Rob ook wel eens dat hij enkel jouw gunt",
+    "Rob heeft nu geen vlees op de gril, dat wordt dadelijk lekker van bil.",
+    "Buiten varken, vis of rund maakt Rob ook wel eens iets dat hij enkel jouw gunt",
     "Robbie maakt nu iets lekkers voor jou, dus blijf hem maar eeuwig trouw.",
     "Deze BBQ King is klaar voor zijn BBQ Queen, al het eten is green."
 ];
 
 const stopTexts = [
-    "PAS OP!!! Vlezige praktijken in proces.",
     "Allergie gedetecteerd, maak dat je je omkeert!",
     "Nee nee, dit is enkel voor Rob, helaas niks voor jou mop.",
     "Rob is in zijn element, lekker vrijen moet op een ander moment.",

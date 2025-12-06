@@ -48,6 +48,15 @@ body {
     margin: 35px 0;
 
 }
+
+#buttons #set-go {
+    background: linear-gradient(135deg, #225e24, #45a049);
+}
+
+#buttons #set-stop {
+    background: linear-gradient(135deg, #6b2424, #c41a1a);
+}
+
 #buttons button:active {
   box-shadow: none;
   transform: translate(3px, 3px);
